@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=' 'sha256-wwlGykg8PWVD+nwxoqJjxYgs8epiIcvVDVWmEC3IGkA='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://upload.wikimedia.org; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com https://api.transitous.org https://en.wikipedia.org https://upload.wikimedia.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=' 'sha256-qfr6OhRSTkEYYGHkb7YNbZMqq8Cj1HUUEwLaCW94cfU='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://upload.wikimedia.org; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com https://api.transitous.org https://en.wikipedia.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#F6F4EF"><meta name="referrer" content="no-referrer">
 <title>Wayfarer</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
@@ -752,10 +752,13 @@ small,.small{font-size:.8rem;color:var(--muted)}
 
 /* photos */
 .ph{position:relative;background:var(--surface2);overflow:hidden}
+.ph::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);background-size:200% 100%;animation:shim 1.4s linear infinite}
+.ph.loaded::before,.ph.nopic::before{animation:none;background:none}
+.ph.nopic{background:linear-gradient(135deg,var(--surface2),var(--line))}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
 .ph img.ok{opacity:1}
 .ph .ini{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;color:var(--faint);font-size:1.4rem;letter-spacing:.05em}
-.ph .credit{position:absolute;right:8px;bottom:6px;font-size:.6rem;color:rgba(255,255,255,.75);background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px;font-weight:500}
+.ph .credit{position:absolute;right:10px;bottom:8px;font-size:.62rem;color:rgba(255,255,255,.8);background:rgba(0,0,0,.35);padding:3px 8px;border-radius:999px;font-weight:600;max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:3}
 
 /* sheet */
 .sheet-bg{position:fixed;inset:0;background:rgba(21,24,31,.45);z-index:30;display:none;align-items:flex-end;justify-content:center}
@@ -771,12 +774,12 @@ small,.small{font-size:.8rem;color:var(--muted)}
 .sheet .acts .btn{flex:1}
 
 /* HOME */
-.hero{position:relative;height:340px;color:#fff}
+.hero{position:relative;height:380px;color:#fff}
 .hero .ph{position:absolute;inset:0;background:#2A2F3A}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.05) 55%,rgba(0,0,0,.72) 100%)}
 .hero .hd{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;z-index:2}
 .hero .cap{position:absolute;left:max(18px,env(safe-area-inset-left,0px));right:max(18px,env(safe-area-inset-right,0px));bottom:20px;z-index:2}
-.hero .cap h1{font-size:2.1rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.hero .cap h1{font-size:2.3rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.4)}
 .hero .cap small{display:block;color:rgba(255,255,255,.85);font-weight:600;margin-top:4px}
 .hero .chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);color:#15181F;font-weight:800;font-size:.8rem;padding:6px 11px;border-radius:999px;margin-bottom:10px}
 .hero .chip i{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
@@ -785,8 +788,8 @@ small,.small{font-size:.8rem;color:var(--muted)}
 .today .wx svg{width:40px;height:40px}
 .today .wx b{font-size:1.1rem;font-weight:800}
 .stops{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding:2px 0 6px;margin:0 -16px;padding-inline:16px}.stops::-webkit-scrollbar{display:none}
-.stopc{position:relative;flex:none;width:150px;border-radius:var(--r2);overflow:hidden;background:var(--surface);box-shadow:var(--shadow);text-align:left;color:inherit}
-.stopc .ph{height:110px}
+.stopc{position:relative;flex:none;width:168px;border-radius:var(--r2);overflow:hidden;background:var(--surface);box-shadow:var(--shadow);text-align:left;color:inherit}
+.stopc .ph{height:124px}
 .stopc .ph .n{position:absolute;left:8px;top:8px;width:24px;height:24px;border-radius:50%;background:#fff;color:#15181F;display:grid;place-items:center;font-size:.72rem;font-weight:800}
 .stopc .m{padding:10px 12px 12px}
 .stopc .m b{display:block;font-weight:800}
@@ -995,6 +998,26 @@ small,.small{font-size:.8rem;color:var(--muted)}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
 @media (min-width:640px){body{font-size:16px}.hero{height:380px;border-radius:0 0 28px 28px;overflow:hidden}}
+
+/* rich activity cards */
+.act.rich{flex-direction:column;padding:0;overflow:hidden}
+.act.rich .ph.big{width:100%;height:176px;border-radius:0}
+.act.rich .bd{padding:12px 14px 14px}
+.act.rich .ctl{position:absolute;top:10px;right:10px;flex-direction:row;z-index:3}
+.act.rich .ctl button{background:rgba(255,255,255,.92);color:#15181F;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.act.rich .ctl .chk.on{background:var(--green);color:#fff}
+.act.rich .tchip{position:absolute;left:12px;top:12px;z-index:3;background:rgba(255,255,255,.92);color:#15181F;font-weight:800;font-size:.8rem;padding:6px 10px;border-radius:999px}
+.act.rich .title{font-size:1.15rem;margin-top:4px}
+.act.rich .note{-webkit-line-clamp:3}
+.act .place{display:block;margin-top:4px;font-weight:600}
+.act.rich.done .ph.big{filter:grayscale(1)}
+button:active,.btn:active,.nxt:active,.stopc:active,.tripcard:active{transform:scale(.985)}
+.nav button.on{color:var(--accent)}
+.nav button.on::before{content:"";position:absolute;top:8px;width:40px;height:28px;border-radius:14px;background:var(--accent-soft);z-index:-1}
+.nav button{position:relative;z-index:0}
+.sec h3{font-size:1.2rem;margin-bottom:12px}
+.sec{margin-top:26px}
+.wxc .h svg{width:48px;height:48px}
 </style>
 </head><body>
 <div class="app">
@@ -1343,8 +1366,8 @@ function renderSettings(){const el=$("#v-settings"),s=S.settings,t=T();
  <div class="sec"><h3>Money</h3><div class="card"><form id="f-rates">${Object.keys(s.rates).map(c=>`<div class="kv"><div><b>1 ${s.homeCur} =</b><small>${c}</small></div><input name="${c}" type="number" step="0.0001" min="0.0001" value="${s.rates[c]}" style="width:120px;text-align:right" inputmode="decimal" aria-label="Rate for ${c}"></div>`).join("")}<div class="kv"><div><b>Home currency</b><small>All totals shown in this</small></div><select name="homeCur" style="width:110px">${["EUR","CHF","GBP","USD","PLN"].map(c=>`<option ${c===s.homeCur?"selected":""}>${c}</option>`).join("")}</select></div><button class="btn ghost full" type="submit" style="margin-top:10px">Save rates</button></form></div></div>
  <div class="sec"><h3>Vault</h3><div class="card"><div class="kv"><div><b>Auto-lock</b><small>Minutes idle before the vault locks</small></div><select id="autolock" style="width:90px">${[1,2,5,10,30].map(m=>`<option ${m===s.autolock?"selected":""}>${m}</option>`).join("")}</select></div>${t&&t.vault?`<div class="kv"><div><b>Change PIN</b><small>Re-seals the vault with a new key</small></div><button class="btn ghost sm" data-a="vchangepin">Change</button></div><div class="kv"><div><b>Delete vault</b><small>Destroys the sealed data for this trip</small></div><button class="btn danger sm" data-a="vdelete">Delete</button></div>`:""}</div></div>
  <div class="sec"><h3>Backup</h3><div class="card"><p class="small" style="margin:0 0 10px">A backup is a JSON file of every trip: plans, budget, packing, journal text and the sealed vault. Photos are not included. Choose encrypted if the file will leave your phone.</p><div class="row"><button class="btn ghost" data-a="export">Export</button><button class="btn ghost" data-a="exportenc">Export encrypted</button><label class="btn ghost" style="cursor:pointer">Import<input type="file" accept="application/json,.json" id="importfile" hidden></label></div></div></div>
- <div class="sec"><h3>Security and privacy</h3><div class="card">${[["Local only","Everything lives in this browser's storage on this device. There is no account, server or sync, and nothing is sent anywhere except the requests below."],["Outbound requests","Open-Meteo (forecast, place search), Transitous (live trains), OpenStreetMap (map tiles), Wikipedia (place photos), Google Fonts. All over HTTPS. No analytics, no trackers, no cookies."],["Content Security Policy","The page enforces a strict CSP: scripts run only if their hash matches, no inline event handlers, no eval, connections only to the hosts above, no frames, no form posts."],["Vault","AES-256-GCM, key from PBKDF2-SHA-256 with 310,000 rounds and a random salt. The PIN is never stored. Locks itself when idle."],["Input handling","Everything you type is escaped before it is rendered. Imported backups are validated field by field and links must be http(s)."],["Dependencies","Leaflet 1.9.4 is embedded in the file, so no third-party script is fetched at runtime."],["What is not covered","Someone with your unlocked phone can read trips and the journal. The vault stays sealed. Use a screen lock."]].map(r=>`<div class="secrow"><span class="ok">✓</span><div><b>${esc(r[0])}.</b> ${esc(r[1])}</div></div>`).join("")}</div></div>
- <div class="sec"><h3>Diagnostics</h3><div class="card" style="padding:4px 16px"><div class="kv"><div><b>Storage</b><small>${idb?"IndexedDB":STORE==="ls"?"localStorage":"memory only, nothing is saved"} · opened as ${esc(location.protocol.replace(":",""))} · online: ${navigator.onLine?"yes":"no"}</small></div></div><div class="kv"><div><b>Photos</b><small>${DIAG.photoOk} shown this session, ${DIAG.photoMiss} without a picture${DIAG.photoErr?" · last error: "+esc(DIAG.photoErr):""}</small></div><button class="btn ghost sm" data-a="retrypics">Retry</button></div><div class="kv"><div><b>Forecast</b><small>${Object.keys(S.wxcache).length?"loaded for "+Object.keys(S.wxcache).length+" places":"not loaded"}${DIAG.wxErr?" · "+esc(DIAG.wxErr):""}</small></div></div><div class="kv"><div><b>Encryption</b><small>${crypto&&crypto.subtle?"WebCrypto available":"WebCrypto missing"}</small></div></div></div></div>
+ <div class="sec"><h3>Security and privacy</h3><div class="card">${[["Local only","Everything lives in this browser's storage on this device. There is no account, server or sync, and nothing is sent anywhere except the requests below."],["Outbound requests","Open-Meteo (forecast, place search), Transitous (live trains), CARTO/OpenStreetMap (map tiles), Wikipedia (place photos), Google Fonts. All over HTTPS. No analytics, no trackers, no cookies."],["Content Security Policy","The page enforces a strict CSP: scripts run only if their hash matches, no inline event handlers, no eval, connections only to the hosts above, no frames, no form posts."],["Vault","AES-256-GCM, key from PBKDF2-SHA-256 with 310,000 rounds and a random salt. The PIN is never stored. Locks itself when idle."],["Input handling","Everything you type is escaped before it is rendered. Imported backups are validated field by field and links must be http(s)."],["Dependencies","Leaflet 1.9.4 is embedded in the file, so no third-party script is fetched at runtime."],["What is not covered","Someone with your unlocked phone can read trips and the journal. The vault stays sealed. Use a screen lock."]].map(r=>`<div class="secrow"><span class="ok">✓</span><div><b>${esc(r[0])}.</b> ${esc(r[1])}</div></div>`).join("")}</div></div>
+ <div class="sec"><h3>Diagnostics</h3><div class="card" style="padding:4px 16px"><div class="kv"><div><b>Storage</b><small>${idb?"IndexedDB":STORE==="ls"?"localStorage":"memory only, nothing is saved"} · opened as ${esc(location.protocol.replace(":",""))} · online: ${navigator.onLine?"yes":"no"}</small></div></div><div class="kv"><div><b>Photos</b><small>${Object.keys(S.settings.pics||{}).length} found, ${Object.keys(S.settings.picmiss||{}).length} without a picture${DIAG.photoErr?" · last error: "+esc(DIAG.photoErr):""}</small></div><button class="btn ghost sm" data-a="retrypics">Retry</button></div><div class="kv"><div><b>Forecast</b><small>${Object.keys(S.wxcache).length?"loaded for "+Object.keys(S.wxcache).length+" places":"not loaded"}${DIAG.wxErr?" · "+esc(DIAG.wxErr):""}</small></div></div><div class="kv"><div><b>Encryption</b><small>${crypto&&crypto.subtle?"WebCrypto available":"WebCrypto missing"}</small></div></div></div></div>
  <div class="sec"><h3>Install</h3><div class="card"><div class="kv"><div><b>Install as an app</b><small>Chrome: ⋮ → Add to Home screen (or "Install app"). It then opens full-screen and works offline.</small></div><button class="btn sm" id="installbtn" data-a="install" ${INSTALL?"":"hidden"}>Install</button></div><div class="kv"><div><b>Offline</b><small>${navigator.serviceWorker&&navigator.serviceWorker.controller?"The app is cached on this device.":"Open once online; the app caches itself for offline use."}</small></div></div></div></div>
  <div class="sec"><h3>Danger zone</h3><div class="card"><div class="kv"><div><b>Delete this trip</b><small>${t?esc(t.name):""}</small></div><button class="btn danger sm" data-a="deltrip">Delete</button></div><div class="kv"><div><b>Wipe everything</b><small>All trips, photos and settings on this device</small></div><button class="btn danger sm" data-a="wipe">Wipe</button></div></div></div>
  <small style="display:block;margin-top:14px;text-align:center">Wayfarer · built for Hemanth · v1.0</small>`}
@@ -1446,10 +1469,10 @@ document.addEventListener("click",async e=>{const b=e.target.closest("[data-a]")
   case "vdel":confirmSheet("Delete this item?",VAULT.items[+arg].label,"Delete",async()=>{VAULT.items.splice(+arg,1);await vaultPersist();renderVault()});break;
   case "vdelete":confirmSheet("Delete the vault?","The sealed data for this trip is destroyed. There is no recovery.","Delete vault",()=>{t.vault=null;vaultLock();save();renderSettings();toast("Vault deleted")});break;
   case "vchangepin":if(!VAULT.key){toast("Unlock the vault first");go("vault");break}sheet(`<h2>New PIN</h2><form id="f-newpin"><div class="pin"><input name="pin" type="password" inputmode="numeric" minlength="4" maxlength="12" required placeholder="new PIN" aria-label="New PIN"></div><div class="pin"><input name="pin2" type="password" inputmode="numeric" minlength="4" maxlength="12" required placeholder="again" aria-label="Repeat"></div><div class="acts"><button class="btn" type="submit">Re-seal</button></div></form>`);break;
-  case "theme":S.settings.theme=arg;applyTheme();save();renderSettings();break;
+  case "theme":S.settings.theme=arg;applyTheme();save();if(MAP){MAP.remove();MAP=null}renderSettings();break;
   case "export":exportBackup(false);break;
   case "install":if(INSTALL){INSTALL.prompt();INSTALL=null}else toast("Use Chrome menu → Add to Home screen");break;
-  case "retrypics":S.settings.picmiss={};DIAG.photoErr="";DIAG.photoMiss=0;save();toast("Retrying photos");go("home");break;
+  case "retrypics":S.settings.picmiss={};S.settings.pics={};DIAG.photoErr="";DIAG.photoMiss=0;save();toast("Reloading photos");go("home");break;
   case "exportenc":sheet(`<h2>Encrypt the backup</h2><p class="small">Choose a passphrase. You will need it to import the file.</p><form id="f-exppin"><div class="f"><label>Passphrase</label><input name="pin" type="password" minlength="6" maxlength="64" required autocomplete="new-password"></div><div class="acts"><button class="btn" type="submit">Export</button></div></form>`);break;
   case "lvedit":LV.edit=LV.edit===arg?null:arg;LV.err2="";drawLive();{const i=$("#lv-in");if(i)i.focus()}break;
   case "lvcancel":LV.edit=null;drawLive();break;
@@ -1505,25 +1528,27 @@ const PICURL={};
 function pic(keys,cls){const list=(Array.isArray(keys)?keys:[keys]).map(k=>String(k||"").trim()).filter(Boolean);const ini=(list[0]||"?").replace(/_/g," ").replace(/[^A-Za-zÀ-ž0-9 ]/g,"").trim().split(/\s+/).slice(0,2).map(w=>w[0]||"").join("").toUpperCase()||"?";
  return `<div class="ph ${cls||""}" data-pic="${esc(list.join("|"))}"><span class="ini">${esc(ini)}</span><img alt="" loading="lazy"></div>`}
 const DIAG={photoOk:0,photoMiss:0,photoErr:"",wxErr:"",liveErr:""};
-async function wikiImage(title){let r;try{r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(title.replace(/ /g,"_")))}catch(e){DIAG.photoErr="Network: "+e.message;return null}
- if(!r.ok){if(r.status!==404){DIAG.photoErr="Wikipedia HTTP "+r.status;return "retry"}return null}let j;try{j=await r.json()}catch(e){return null}
- if(j.type==="disambiguation")return null;const th=j.thumbnail&&j.thumbnail.source,o=j.originalimage;if(!th&&!o)return null;const c=[];
- if(th&&o&&o.width>=900)c.push(th.replace(/\/(\d+)px-/,"/900px-"));if(th&&o&&o.width>=640)c.push(th.replace(/\/(\d+)px-/,"/640px-"));if(th)c.push(th);if(o)c.push(o.source);return [...new Set(c)]}
+async function wikiImage(q){const api="https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&origin=*&redirects=1&prop=pageimages&piprop=thumbnail&pithumbsize=900&";
+ for(const u of [api+"titles="+encodeURIComponent(q),api+"generator=search&gsrlimit=1&gsrnamespace=0&gsrsearch="+encodeURIComponent(q)]){let r;try{r=await fetch(u)}catch(x){DIAG.photoErr="Network: "+x.message;return "retry"}
+  if(!r.ok){DIAG.photoErr="Wikipedia HTTP "+r.status;return "retry"}let j;try{j=await r.json()}catch(x){continue}const pages=(j.query&&j.query.pages)||[];const pg=pages.find(p=>p.thumbnail&&p.thumbnail.source);if(pg)return {url:pg.thumbnail.source,title:pg.title}}
+ return null}
 let PICBUSY=false;
-async function loadPics(){if(PICBUSY)return;PICBUSY=true;try{for(const el of $$(".ph[data-pic]:not([data-done])")){if(!el.isConnected)continue;el.dataset.done="1";const keys=el.dataset.pic.split("|");const img=el.querySelector("img");if(!img)continue;let url=null,hit=null;
- for(const k of keys){if(PICURL[k]){url=PICURL[k];hit=k;break}const b=await kvGet("photos","pic:"+k);if(b instanceof Blob&&b.size>0){url=PICURL[k]=URL.createObjectURL(b);hit=k;break}}
- if(!url){const miss=S.settings.picmiss||(S.settings.picmiss={});for(const k of keys){if(miss[k]&&Date.now()-miss[k]<864e5)continue;const cands=await wikiImage(k);if(cands==="retry")continue;if(!cands){miss[k]=Date.now();continue}
-  for(const src of cands){try{const r=await fetch(src);if(!r.ok)continue;const b=await r.blob();if(!b.type.startsWith("image/"))continue;if(b.size<5e6)await kvSet("photos","pic:"+k,b);url=PICURL[k]=URL.createObjectURL(b);break}catch(e){DIAG.photoErr="Image fetch: "+e.message}}
-  if(!url){url=cands[0]}hit=k;break}save()}
- if(!url||!el.isConnected){if(!url)DIAG.photoMiss++;continue}
- img.onload=()=>{img.classList.add("ok");DIAG.photoOk++};img.onerror=()=>{DIAG.photoErr="Image failed to load: "+(url||"").slice(0,80);img.remove()};img.src=url;
- if(!el.querySelector(".credit")&&el.classList.contains("credit-on")&&hit)el.insertAdjacentHTML("beforeend",`<a class="credit" href="https://en.wikipedia.org/wiki/${encodeURIComponent(hit.replace(/ /g,"_"))}" target="_blank" rel="noopener noreferrer">Wikipedia</a>`)}}finally{PICBUSY=false}
+async function loadPics(){if(PICBUSY)return;PICBUSY=true;try{const cache=S.settings.pics||(S.settings.pics={}),miss=S.settings.picmiss||(S.settings.picmiss={});let dirty=false;
+ for(const el of $$(".ph[data-pic]:not([data-done])")){if(!el.isConnected)continue;el.dataset.done="1";const keys=el.dataset.pic.split("|");const img=el.querySelector("img");if(!img)continue;let hit=null;
+  for(const k of keys){if(cache[k]){hit=cache[k];break}}
+  if(!hit){for(const k of keys){if(miss[k]&&Date.now()-miss[k]<864e5)continue;const r=await wikiImage(k);if(r==="retry")continue;if(!r){miss[k]=Date.now();dirty=true;continue}cache[k]=r;hit=r;dirty=true;break}}
+  if(!hit||!el.isConnected){if(!hit){DIAG.photoMiss++;el.classList.add("nopic")}continue}
+  img.onload=()=>{img.classList.add("ok");el.classList.add("loaded");DIAG.photoOk++};img.onerror=()=>{DIAG.photoErr="Image failed: "+hit.url.slice(0,90);el.classList.add("nopic")};img.src=hit.url;
+  if(el.classList.contains("credit-on")&&!el.querySelector(".credit"))el.insertAdjacentHTML("beforeend",`<a class="credit" href="https://en.wikipedia.org/wiki/${encodeURIComponent(hit.title.replace(/ /g,"_"))}" target="_blank" rel="noopener noreferrer">${esc(hit.title)} · Wikipedia</a>`)}
+ if(dirty)save()}finally{PICBUSY=false}
  if($$(".ph[data-pic]:not([data-done])").length)loadPics()}
 const picKeys=a=>[a.wiki,a.place,a.title].filter(Boolean);
 const cityKeys=c=>[c.wiki,c.name].filter(Boolean);
 
 /* ===================== HOME ===================== */
 let MINI=null;
+const isDark=()=>document.documentElement.dataset.theme==="dark"||(document.documentElement.dataset.theme!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches);
+const tiles=()=>L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/${isDark()?"dark_all":"voyager"}/{z}/{x}/{y}{r}.png`,{maxZoom:19,subdomains:"abcd",attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a>'});
 function renderHome(){const t=T();const el=$("#v-home");el.classList.add("bleed");if(!t){el.classList.remove("bleed");el.innerHTML=topbar("Wayfarer","Your trips")+`<div class="empty"><b>No trips yet</b>Create your first trip to begin.</div><button class="btn full accent" data-a="newtrip">New trip</button>`;return}
  const today=todayISO(),days=tripDays(t),n=daysBetween(today,t.from),done=today>t.to,on=today>=t.from&&today<=t.to;
  const totalActs=days.reduce((a,d)=>a+(t.days[d]?t.days[d].acts.length:0),0),doneActs=days.reduce((a,d)=>a+(t.days[d]?t.days[d].acts.filter(x=>x.done).length:0),0);
@@ -1551,7 +1576,7 @@ function renderHome(){const t=T();const el=$("#v-home");el.classList.add("bleed"
  </div>`;
  loadPics();miniMap(t);loadWx(t).then(ok=>{if(ok&&VIEW==="home")renderHome()})}
 function miniMap(t){const el=$("#mini");if(!el||typeof L==="undefined")return;const pts=[];if(t.homeLat)pts.push([t.homeLat,t.homeLon]);t.cities.forEach(c=>{if(c.lat)pts.push([c.lat,c.lon])});if(t.homeLat)pts.push([t.homeLat,t.homeLon]);
- const m=L.map(el,{zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,touchZoom:false,boxZoom:false,keyboard:false,tap:false});L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18}).addTo(m);
+ const m=L.map(el,{zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,touchZoom:false,boxZoom:false,keyboard:false,tap:false});tiles().addTo(m);
  if(pts.length>1)L.polyline(pts,{color:"#E8503A",weight:3,opacity:.9,dashArray:"1 8",lineCap:"round"}).addTo(m);t.cities.forEach((c,i)=>{if(c.lat)L.marker([c.lat,c.lon],{icon:L.divIcon({className:"",html:`<div class="mk city"><i>${i+1}</i></div>`,iconSize:[26,26],iconAnchor:[13,13]}),interactive:false}).addTo(m)});
  if(t.homeLat)L.circleMarker([t.homeLat,t.homeLon],{radius:5,color:"#fff",weight:2,fillColor:"#15181F",fillOpacity:1,interactive:false}).addTo(m);
  setTimeout(()=>{m.invalidateSize();if(pts.length)m.fitBounds(pts,{padding:[26,26]});else m.setView([50,15],4)},30)}
@@ -1571,13 +1596,17 @@ function renderPlan(){const t=T(),el=$("#v-plan");if(!t){el.innerHTML=topbar("Pl
  const cost=d.acts.reduce((a,x)=>a+toHome(x.cost,x.cur),0);
  el.innerHTML=topbar(t.name,"Itinerary",`<button class="ibtn" data-a="go" data-arg="map" aria-label="Map">${ICO.map}</button>`)+
  `<div class="days">${days.map((x,i)=>`<button data-a="planday" data-arg="${x}" class="${x===PLANDAY?"on":""} ${x===today?"today":""}"><small>${DOW[parseISO(x).getDay()]}</small><b>${parseISO(x).getDate()}</b><small>${MON[parseISO(x).getMonth()]}</small></button>`).join("")}</div>
- <div class="dayhead"><div><div class="eyebrow">Day ${days.indexOf(PLANDAY)+1} · ${fmtDay(PLANDAY)}</div><h2>${esc(d.title||city.name)}</h2><small>${esc(city.name)}${w?` · ${wmo(w.code)[0].toLowerCase()}, ${Math.round(w.max)}° / ${Math.round(w.min)}°`:""}${cost?" · "+money(cost,S.settings.homeCur)+" planned":""}</small></div><button class="lnk" data-a="editday">Rename</button></div>
+ <div class="dayhead"><div><div class="eyebrow">Day ${days.indexOf(PLANDAY)+1} · ${fmtDay(PLANDAY)} · ${esc(city.name)}</div><h2>${esc(d.title||city.name)}</h2><small>${esc(city.name)}${w?` · ${wmo(w.code)[0].toLowerCase()}, ${Math.round(w.max)}° / ${Math.round(w.min)}°`:""}${cost?" · "+money(cost,S.settings.homeCur)+" planned":""}</small></div><button class="lnk" data-a="editday">Rename</button></div>
  ${city&&city.stay?`<div class="stay"><div class="ic">${ICO.bed}</div><div class="grow"><b>${esc(city.stay)}</b><small>${esc(city.name)} · ${fmtRange(city.arrive,city.depart)}</small></div>${A("Maps",ms(city.stay+", "+city.name))}</div>`:""}
  ${d.acts.length?`<ol class="tl" id="tl">${d.acts.map((a,i)=>actHTML(a,i,d.acts.length)).join("")}</ol>`:`<div class="empty"><b>Nothing planned yet</b>Tap + to add the first activity.</div>`}
  <button class="fab" data-a="addact" aria-label="Add activity">${ICO.plus}</button>`;
  loadPics();if(w==null)loadWx(t).then(ok=>{if(ok&&VIEW==="plan")renderPlan()})}
 function actHTML(a,i,n){const lk=[];if(a.link)lk.push(A("Open",a.link));if(a.lat!=null)lk.push(A("Directions",gm("",a.place||a.title,"transit").replace("origin=&","")));else if(a.place)lk.push(A("Maps",ms(a.place)));
- return `<li class="act ${a.cat} ${a.done?"done":""}" data-id="${a.id}" draggable="true">${pic(picKeys(a))}<div class="bd"><div class="tm"><time>${esc(a.t||"Anytime")}</time><span class="cat ${a.cat}">${CATN[a.cat]}</span>${a.booked?`<span class="pill ${a.booked==="booked"?"ok":"warn"}">${esc(a.booked)}</span>`:""}${a.cost?`<span class="pill">${money(a.cost,a.cur)}</span>`:""}</div><div class="title">${esc(a.title)}</div>${a.note?`<div class="note">${esc(a.note)}</div>`:""}<div class="lk">${lk.join("")}<button data-a="editact" data-arg="${a.id}">Edit</button></div></div><div class="ctl"><button class="chk ${a.done?"on":""}" data-a="toggleact" data-arg="${a.id}" aria-label="Done">${ICO.check}</button>${i>0?`<button data-a="moveact" data-arg="${a.id}|-1" aria-label="Move up">${ICO.up}</button>`:""}${i<n-1?`<button data-a="moveact" data-arg="${a.id}|1" aria-label="Move down">${ICO.down}</button>`:""}</div></li>`}
+ const ctl=`<div class="ctl"><button class="chk ${a.done?"on":""}" data-a="toggleact" data-arg="${a.id}" aria-label="Done">${ICO.check}</button>${i>0?`<button data-a="moveact" data-arg="${a.id}|-1" aria-label="Move up">${ICO.up}</button>`:""}${i<n-1?`<button data-a="moveact" data-arg="${a.id}|1" aria-label="Move down">${ICO.down}</button>`:""}</div>`;
+ const chips=`<span class="cat ${a.cat}">${CATN[a.cat]}</span>${a.booked?`<span class="pill ${a.booked==="booked"?"ok":"warn"}">${esc(a.booked)}</span>`:""}${a.cost?`<span class="pill">${money(a.cost,a.cur)}</span>`:""}`;
+ const rich=a.cat==="sight"||a.cat==="stay";
+ if(rich)return `<li class="act rich ${a.cat} ${a.done?"done":""}" data-id="${a.id}" draggable="true">${pic(picKeys(a),"big")}<span class="tchip">${esc(a.t||"Anytime")}</span><div class="bd"><div class="tm">${chips}</div><div class="title">${esc(a.title)}</div>${a.note?`<div class="note">${esc(a.note)}</div>`:""}${a.place&&a.place!==a.title?`<small class="place">${esc(a.place)}</small>`:""}<div class="lk">${lk.join("")}<button data-a="editact" data-arg="${a.id}">Edit</button></div></div>${ctl}</li>`;
+ return `<li class="act ${a.cat} ${a.done?"done":""}" data-id="${a.id}" draggable="true">${pic(picKeys(a))}<div class="bd"><div class="tm"><time>${esc(a.t||"Anytime")}</time>${chips}</div><div class="title">${esc(a.title)}</div>${a.note?`<div class="note">${esc(a.note)}</div>`:""}<div class="lk">${lk.join("")}<button data-a="editact" data-arg="${a.id}">Edit</button></div></div>${ctl}</li>`}
 
 /* ===================== MAP ===================== */
 let MAP=null,MAPLAYER=null,MAPDAY="all",MAPMK={};
@@ -1585,7 +1614,7 @@ function renderMap(){const t=T(),el=$("#v-map");el.classList.add("bleed");if(!t)
  if(!$("#map",el)){el.innerHTML=`<div id="map"></div><div class="mapui"><div class="chips" id="mapchips"></div></div><div class="mapcards" id="mapcards"></div>`}
  $("#mapchips").innerHTML=`<button data-a="mapday" data-arg="all" class="${MAPDAY==="all"?"on":""}">Whole trip</button>`+tripDays(t).map(d=>`<button data-a="mapday" data-arg="${d}" class="${MAPDAY===d?"on":""}">${fmtDay(d).slice(4)}</button>`).join("");
  if(typeof L==="undefined")return;
- if(!MAP){MAP=L.map("map",{zoomControl:false,attributionControl:true});L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>'}).addTo(MAP);MAPLAYER=L.layerGroup().addTo(MAP)}
+ if(!MAP){MAP=L.map("map",{zoomControl:false,attributionControl:true});tiles().addTo(MAP);MAPLAYER=L.layerGroup().addTo(MAP)}
  MAPLAYER.clearLayers();MAPMK={};const b=[],cards=[];const days=MAPDAY==="all"?tripDays(t):[MAPDAY];
  if(MAPDAY==="all"){const line=[];if(t.homeLat)line.push([t.homeLat,t.homeLon]);t.cities.forEach((c,i)=>{if(c.lat){line.push([c.lat,c.lon]);b.push([c.lat,c.lon]);const mk=L.marker([c.lat,c.lon],{icon:L.divIcon({className:"",html:`<div class="mk city"><i>${i+1}</i></div>`,iconSize:[26,26],iconAnchor:[13,13]})}).bindPopup(`<b>${esc(c.name)}</b><br>${esc(fmtRange(c.arrive,c.depart))}${c.stay?"<br>"+esc(c.stay):""}`).addTo(MAPLAYER);MAPMK["c"+i]=mk;cards.push({id:"c"+i,keys:cityKeys(c),title:c.name,sub:fmtRange(c.arrive,c.depart)+(c.stay?" · "+c.stay:""),lat:c.lat,lon:c.lon,zoom:12,day:c.arrive})}});if(t.homeLat)line.push([t.homeLat,t.homeLon]);if(line.length>1)L.polyline(line,{color:"#E8503A",weight:3,opacity:.85,dashArray:"1 8",lineCap:"round"}).addTo(MAPLAYER)}
  days.forEach(d=>{const acts=(t.days[d]?t.days[d].acts:[]).filter(a=>a.lat!=null);const pl=[];acts.forEach((a,i)=>{pl.push([a.lat,a.lon]);if(MAPDAY!=="all")b.push([a.lat,a.lon]);const mk=L.marker([a.lat,a.lon],{icon:L.divIcon({className:"",html:`<div class="mk ${a.cat}"><i>${MAPDAY==="all"?"":i+1}</i></div>`,iconSize:[30,30],iconAnchor:[15,30],popupAnchor:[0,-28]})}).bindPopup(`<b>${esc(a.title)}</b><br><small>${esc(fmtDay(d))}${a.t?" · "+esc(a.t):""}</small><br><a href="${esc(gm("",a.place||a.title).replace("origin=&",""))}" target="_blank" rel="noopener noreferrer">Directions</a>`).addTo(MAPLAYER);MAPMK[a.id]=mk;if(MAPDAY!=="all")cards.push({id:a.id,keys:picKeys(a),title:a.title,sub:(a.t?a.t+" · ":"")+CATN[a.cat]+(a.place&&a.place!==a.title?" · "+a.place:""),lat:a.lat,lon:a.lon,zoom:15})});if(MAPDAY!=="all"&&pl.length>1)L.polyline(pl,{color:"#0E7C86",weight:3,opacity:.8}).addTo(MAPLAYER)});
